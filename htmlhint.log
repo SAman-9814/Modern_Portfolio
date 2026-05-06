@@ -1,0 +1,24 @@
+﻿
+   C:\WEB DEVELOPMENT BY LOVE BABBER\Html-Css-Javascript\Final_Project\index.html
+[37m      L37 |[90m...             <div class="term-icon-box">>_</div>[39m
+[37m                                                      ^ [31mSpecial characters must be escaped : [ > ]. (spec-char-escape)[39m
+[37m      L41 |[90m...term-row-bottom"><span class="term-cmd">> sudo boot_gui</span><span class="term-status">Loading ...</...[39m
+[37m                                                      ^ [31mSpecial characters must be escaped : [ > ]. (spec-char-escape)[39m
+[37m      L113 |[90m...        <h2 class="section-title"><span>>_</span> # About.system</h2>[39m
+[37m                                                       ^ [31mSpecial characters must be escaped : [ > ]. (spec-char-escape)[39m
+[37m      L129 |[90m...                <div class="log-header">>_ user_profile.log</div>[39m
+[37m                                                       ^ [31mSpecial characters must be escaped : [ > ]. (spec-char-escape)[39m
+[37m      L155 |[90m...h">a1b2ca2 <span class="head-tag">HEAD -> Full Stack Developer</span></span><span style="color:#666;"...[39m
+[37m                                                       ^ [31mSpecial characters must be escaped : [ > ]. (spec-char-escape)[39m
+[37m      L166 |[90m...h">a1b2ca1 <span class="head-tag">HEAD -> Full Stack Developer</span></span><span style="color:#666;"...[39m
+[37m                                                       ^ [31mSpecial characters must be escaped : [ > ]. (spec-char-escape)[39m
+[37m      L177 |[90m...02026 <span class="head-tag"> bachelor -> degree</span></span><span style="color:#666;">Qualification...[39m
+[37m                                                       ^ [31mSpecial characters must be escaped : [ > ]. (spec-char-escape)[39m
+[37m      L222 |[90m...        <div class="skills-term-header">>_ Initialize OS</div>[39m
+[37m                                                       ^ [31mSpecial characters must be escaped : [ > ]. (spec-char-escape)[39m
+[37m      L229 |[90m...ss="skills-term-line skills-term-white">> sudo boot_gui</div>[39m
+[37m                                                       ^ [31mSpecial characters must be escaped : [ > ]. (spec-char-escape)[39m
+[37m      L230 |[90m...          <div class="skills-term-line">> [INFO] Unpacking core libraries... <span class="skills-term...[39m
+[37m                                                       ^ [31mSpecial characters must be escaped : [ > ]. (spec-char-escape)[39m
+
+Scanned 1 files, found 10 errors in 1 files (22 ms)

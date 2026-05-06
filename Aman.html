@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern 3D Animated Skills Sphere</title>
+  <style>
+    /* Base reset and dark grid background */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1c; /* Slightly darker for better contrast */
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Inter', 'Courier New', Courier, monospace; /* Added modern font fallback */
+    }
+
+    /* Container for the 3D scene */
+    .scene {
+      width: 500px;
+      height: 500px;
+      perspective: 1200px;
+      position: relative;
+    }
+
+    /* Modern 3D Animated Core Ball */
+    .core-ball {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 180px;
+      height: 180px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      /* 3D shading effect */
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.6) 70%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      /* Glowing effect */
+      box-shadow: 
+        0 0 60px rgba(100, 150, 255, 0.15), 
+        inset 0 0 40px rgba(255, 255, 255, 0.05);
+      z-index: 0;
+      animation: pulseAndSpin 6s infinite alternate ease-in-out;
+    }
+
+    /* Outer wireframe rings to add depth */
+    .wireframe-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 320px;
+      height: 320px;
+      transform: translate(-50%, -50%) rotateX(70deg);
+      border-radius: 50%;
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      z-index: 0;
+      animation: spinRing 20s infinite linear;
+    }
+
+    .wireframe-ring:nth-child(3) {
+      width: 340px;
+      height: 340px;
+      transform: translate(-50%, -50%) rotateY(70deg);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      animation: spinRingReverse 25s infinite linear;
+    }
+
+    /* Keyframe Animations for the background elements */
+    @keyframes pulseAndSpin {
+      0% { 
+        transform: translate(-50%, -50%) scale(0.95) rotateZ(0deg); 
+        box-shadow: 0 0 40px rgba(100, 150, 255, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.05); 
+      }
+      100% { 
+        transform: translate(-50%, -50%) scale(1.05) rotateZ(10deg); 
+        box-shadow: 0 0 80px rgba(100, 150, 255, 0.3), inset 0 0 60px rgba(255, 255, 255, 0.1); 
+      }
+    }
+
+    @keyframes spinRing {
+      0% { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(0deg); }
+      100% { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(360deg); }
+    }
+
+    @keyframes spinRingReverse {
+      0% { transform: translate(-50%, -50%) rotateY(70deg) rotateZ(0deg); }
+      100% { transform: translate(-50%, -50%) rotateY(70deg) rotateZ(-360deg); }
+    }
+
+    /* The rotating sphere container */
+    .sphere {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      z-index: 1;
+    }
+
+    /* Individual skill items */
+    .skill {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.9);
+      user-select: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* Hover effect makes them pop out and glow */
+    .skill:hover {
+      text-shadow: 0 0 15px currentColor, 0 0 30px currentColor;
+      transform: scale(1.2) !important; /* Forces scale on hover */
+      z-index: 1000 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div style="position: absolute; top: 30px; left: 30px; color: rgba(255,255,255,0.9); font-size: 22px; font-weight: bold; display: flex; align-items: center; gap: 12px; font-family: monospace;">
+    <span style="color: #ff5e3a; font-size: 28px; text-shadow: 0 0 10px rgba(255,94,58,0.5);">❂</span> # Skills.json
+  </div>
+
+  <div class="scene">
+    <div class="core-ball"></div>
+    <div class="wireframe-ring"></div>
+    <div class="wireframe-ring"></div>
+    
+    <div class="sphere" id="sphere"></div>
+  </div>
+
+  <script>
+    const skills = [
+      { name: 'JavaScript', color: '#f7df1e' },
+      { name: 'TypeScript', color: '#3178c6' },
+      { name: 'React', color: '#61dafb' },
+      { name: 'Node.js', color: '#68a063' },
+      { name: 'AWS', color: '#ff9900' },
+      { name: 'Next.js', color: '#ffffff' },
+      { name: 'GraphQL', color: '#e10098' },
+      { name: 'Redux', color: '#764abc' },
+      { name: 'Tailwind', color: '#38bdf8' },
+      { name: 'Linux', color: '#cccccc' },
+      { name: 'Python', color: '#3776ab' },
+      { name: 'Firebase', color: '#ffca28' },
+      { name: 'Three.js', color: '#ffffff' },
+      { name: 'Vite', color: '#646cff' },
+      { name: 'Webpack', color: '#8dd6f9' },
+      { name: 'Jest', color: '#c21325' },
+      { name: 'Azure', color: '#0078d4' },
+      { name: 'NGINX', color: '#009639' },
+      { name: 'Postman', color: '#ff6c37' }
+    ];
+
+    const sphere = document.getElementById('sphere');
+    const radius = 200; // Increased radius to fit around the larger core
+    const elements = [];
+
+    // Distribute points mathematically around the sphere
+    skills.forEach((skill, i) => {
+      const el = document.createElement('div');
+      el.className = 'skill';
+      el.style.color = skill.color;
+      el.innerText = skill.name;
+      sphere.appendChild(el);
+
+      // Fibonacci lattice distribution
+      const phi = Math.acos(-1 + (2 * i) / skills.length);
+      const theta = Math.sqrt(skills.length * Math.PI) * phi;
+
+      const x = radius * Math.cos(theta) * Math.sin(phi);
+      const y = radius * Math.sin(theta) * Math.sin(phi);
+      const z = radius * Math.cos(phi);
+
+      elements.push({ el, x, y, z });
+    });
+
+    // Animation Variables
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetRotationX = 0;
+    let targetRotationY = 0;
+    let currentRotationX = 0;
+    let currentRotationY = 0;
+
+    // Track mouse position to influence rotation
+    document.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX - window.innerWidth / 2) / window.innerWidth;
+      mouseY = (e.clientY - window.innerHeight / 2) / window.innerHeight;
+    });
+
+    function animate() {
+      // 1. Continuous auto-rotation base
+      targetRotationY += 0.005; 
+      targetRotationX += 0.002;
+
+      // 2. Add mouse influence smoothly
+      targetRotationY += mouseX * 0.05;
+      targetRotationX += mouseY * 0.05;
+
+      // 3. Easing function for buttery smooth movement
+      currentRotationX += (targetRotationX - currentRotationX) * 0.1;
+      currentRotationY += (targetRotationY - currentRotationY) * 0.1;
+
+      elements.forEach((item) => {
+        const cosX = Math.cos(currentRotationX);
+        const sinX = Math.sin(currentRotationX);
+        const cosY = Math.cos(currentRotationY);
+        const sinY = Math.sin(currentRotationY);
+
+        // Apply Y-axis rotation
+        let x1 = item.x * cosY - item.z * sinY;
+        let z1 = item.z * cosY + item.x * sinY;
+
+        // Apply X-axis rotation
+        let y1 = item.y * cosX - z1 * sinX;
+        let z2 = z1 * cosX + item.y * sinX;
+
+        // Calculate depth (scale and opacity based on Z position)
+        const scale = (z2 + radius * 1.5) / (radius * 2.5);
+        
+        // Apply transform
+        // Note: we don't apply scale directly in transform if we want hover to override it easily,
+        // so we use font-size for the depth scaling illusion.
+        item.el.style.transform = `translate3d(${x1}px, ${y1}px, ${z2}px) translate(-50%, -50%)`;
+        
+        // Depth effects
+        item.el.style.opacity = Math.max(0.15, scale);
+        item.el.style.fontSize = `${Math.max(12, 24 * scale)}px`;
+        item.el.style.filter = `blur(${Math.max(0, (1 - scale) * 3)}px)`; // Adds modern depth of field
+        item.el.style.zIndex = Math.round(z2 + radius);
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>

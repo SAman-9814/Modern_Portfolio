@@ -6,10 +6,10 @@
         const navItems = document.querySelectorAll('.nav-item');
         window.addEventListener('scroll', () => {
             let current = "";
-            allSections.forEach(s => { if (pageYOffset >= s.offsetTop - 60) current = s.getAttribute('id'); });
+            allSections.forEach(s => { if (window.scrollY >= s.offsetTop - 60) current = s.getAttribute('id'); });
             navItems.forEach(item => {
                 item.classList.remove('active');
-                if (item.getAttribute('onclick').includes(current)) item.classList.add('active');
+                if (current && item.getAttribute('onclick').includes(current)) item.classList.add('active');
             });
         });
 
@@ -179,8 +179,18 @@ const Portfolio = () => {
 const seeMoreBtn = document.getElementById('seeMoreBtn');
 if (seeMoreBtn) {
     seeMoreBtn.onclick = () => {
-        document.querySelectorAll('.project-card.hidden-card').forEach(p => p.classList.toggle('hidden-card'));
-        seeMoreBtn.innerHTML = seeMoreBtn.innerText.includes('More')
+        const extraCards = document.querySelectorAll('.extra-card');
+        const isShowingMore = seeMoreBtn.innerText.includes('More');
+        
+        extraCards.forEach(p => {
+            if (isShowingMore) {
+                p.classList.remove('hidden-card');
+            } else {
+                p.classList.add('hidden-card');
+            }
+        });
+        
+        seeMoreBtn.innerHTML = isShowingMore
             ? 'Show Less <i class="fas fa-chevron-up"></i>'
             : 'See More Projects <i class="fas fa-chevron-down"></i>';
     };
@@ -198,4 +208,37 @@ function ctRunScript() {
     const subject = encodeURIComponent('Portfolio Contact from ' + name);
     const body    = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message);
     window.location.href = 'mailto:amansah9814@gmail.com?subject=' + subject + '&body=' + body;
+}
+
+
+// --- Project Filtering ---
+const filterBtns = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+
+if (filterBtns.length > 0) {
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const filterValue = btn.getAttribute('data-filter');
+            
+            projectCards.forEach(card => {
+                const categories = card.getAttribute('data-category') || '';
+                if (filterValue === 'all' || categories.includes(filterValue)) {
+                    card.style.display = 'flex'; // card is display:flex in CSS
+                    // If it's a hidden card, ensure we also manage its display appropriately
+                    // Note: 'Show more' logic might need adjustment but this is fine for now
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Hide the 'See More' button when filtering
+            const seeMoreBtn = document.getElementById('seeMoreBtn');
+            if(seeMoreBtn) {
+                seeMoreBtn.style.display = filterValue === 'all' ? 'block' : 'none';
+            }
+        });
+    });
 }
